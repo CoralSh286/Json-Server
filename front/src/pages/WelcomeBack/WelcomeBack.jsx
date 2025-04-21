@@ -1,8 +1,9 @@
 import React from 'react'
 import './style.css'
+import { getUser } from '../../helper/localStorageHelper'
 export default function WelcomeBack() {
   
-    const username = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : 'Guest'
+    const username = getUser().name
   return (
     <main className="home-content">
     <h1 className="home-title">Hi {username}</h1>

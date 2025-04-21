@@ -1,0 +1,86 @@
+/* PostsPage Styles */
+
+.posts-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+  
+  .posts-title {
+    color: #2d3748;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+  }
+  
+  .posts-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #4a90e2;
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+  }
+  
+  .posts-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+  
+  .posts-empty {
+    text-align: center;
+    padding: 3rem 0;
+    color: #718096;
+    font-size: 1.1rem;
+  }
+  
+  .posts-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 0;
+  }
+  
+  .posts-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(74, 144, 226, 0.2);
+    border-radius: 50%;
+    border-top-color: #4a90e2;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .posts-container {
+      padding: 1rem;
+    }
+    
+    .posts-title {
+      font-size: 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+    
+    .posts-grid {
+      gap: 1.25rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .posts-title {
+      font-size: 1.5rem;
+    }
+    
+    .posts-grid {
+      gap: 1rem;
+    }
+  }
