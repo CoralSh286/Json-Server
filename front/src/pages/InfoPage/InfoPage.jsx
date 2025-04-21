@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import InfoCard from '../../components/InfoCard/InfoCard'
 import "./style.css"
+import { getUser } from '../../helper/localStorageHelper'
 
 export default function InfoPage() {
   const [userData, setUserData] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Get user data from localStorage
-    const storedUser = localStorage.getItem('user')
-    if (storedUser) {
-      setUserData(JSON.parse(storedUser))
-    }
+      setUserData(getUser())
     setLoading(false)
   }, [])
 
