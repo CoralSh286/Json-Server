@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './style.css';
 import Input from '../../components/Input/Input';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import UserDetailsPage from '../UserDetailsPage/UserDetailsPage';
 import { checkIsUserNameExist } from '../../service/requests';
 
@@ -56,8 +56,8 @@ export default function RegisterPage() {
     if (!formData.password) {
       tempErrors.password = 'Password is required';
       isValid = false;
-    } else if (formData.password.length < 6) {
-      tempErrors.password = 'Password must be at least 6 characters';
+    } else if (formData.password.length < 1) {
+      tempErrors.password = 'Password must be at least 1 characters';
       isValid = false;
     }
     
@@ -94,15 +94,12 @@ export default function RegisterPage() {
   }
   };
 
+  if(validUser) {
+    return (
+       <Outlet context={{userData:{username:formData.username, password:formData.password} , setValidUser:setValidUser }} />
+    )
+  }
 
-
-if(validUser) {
-  return (
-    <>
-<UserDetailsPage username={formData.username} password={formData.password} />
-    </>
-  )
-}
 
   return (
     <div className="register-container">
@@ -156,6 +153,7 @@ if(validUser) {
       <div className="login-link">
         Already have an account? <Link to={"/"}>Login</Link>
       </div>
+    
     </div>
   );
 }

@@ -35,13 +35,16 @@ const useApiRequest = ({url, method = 'get', initialData = null , body= {}}) => 
 
   return { data, loading, error, fetchData };
 };
-const  apiRequest = async ({url, method, body}) => { 
+const  apiRequest = async ({url, method, body , }) => { 
         try {
         const response = await axios({
             baseURL: URL,
             url,
+            headers: {
+                'Content-Type': 'application/json',
+            },
             method,
-            body,
+            data: JSON.stringify(body),
     
         });
         return response.data;

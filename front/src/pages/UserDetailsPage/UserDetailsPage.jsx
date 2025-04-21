@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import Input from '../../components/Input/Input'
 import './style.css' // Import the CSS file
+import { registerUser } from '../../service/requests';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 
-export default function UserDetailsPage({ username , password }) {
+export default function UserDetailsPage() {
+  const { userData, setValidUser } = useOutletContext();
+  const { username, password } = userData;
+  const nav = useNavigate()
   const [user, setUser] = useState({
 
     username: username,
@@ -59,6 +64,8 @@ export default function UserDetailsPage({ username , password }) {
     e.preventDefault();
     // Handle form submission logic here
     try {
+      console.log('user =================>', JSON.stringify(user));
+      
       const res = await registerUser(user);
       console.log('User registered successfully:', res);
       // Add success handling here
@@ -67,9 +74,13 @@ export default function UserDetailsPage({ username , password }) {
       // Add error handling here
     }
   };
-
+  const backToRegister = () => {
+    setValidUser(false);
+    nav("/register")
+  };
   return (
     <div className="user-details-container">
+      <button onClick={backToRegister}> { "<"}</button>
       <h1 className="user-details-title">User Details</h1>
       
       <form onSubmit={handleSubmit} className="user-details-form">

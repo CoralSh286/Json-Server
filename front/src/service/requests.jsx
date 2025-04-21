@@ -21,7 +21,7 @@ const checkIsUserNameExist = async ({username}) => {
 }
 const registerUser = async (user) => {
     try {
-        const response = await apiRequest({ url: '/users', method: 'post', body: user });
+        const response = await apiRequest({ url: '/users', method: 'post', body: user  });
         return response;
     } catch (error) {
         console.error('Register error:', error);
