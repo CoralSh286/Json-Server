@@ -1,0 +1,117 @@
+/* UserDetails style.css */
+
+.user-details-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px; /* Increased to accommodate two columns */
+    margin: 0 auto;
+  }
+  
+  .user-details-title {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  .user-details-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-section {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .form-section:last-child {
+    border-bottom: none;
+  }
+  
+  .section-title {
+    color: #4a5568;
+    font-size: 1.2rem;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+    position: relative;
+    padding-left: 0.75rem;
+  }
+  
+  .section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background-color: #4a90e2;
+    border-radius: 2px;
+  }
+  
+  /* Two-column grid layout */
+  .input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* For groups inside the row */
+  .input-group {
+    width: 100%;
+  }
+  
+  /* For a single input that should take full width */
+  .input-full {
+    grid-column: 1 / -1;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 640px) {
+    .input-row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    
+    .user-details-container {
+      padding: 1.5rem;
+      max-width: 450px;
+    }
+  }
+  
+  .form-footer {
+    margin-top: 2rem;
+  }
+  
+  .submit-button {
+    width: 100%;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.9rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .submit-button:hover {
+    background-color: #3a7cc0;
+    transform: translateY(-2px);
+  }
+  
+  .submit-button:active {
+    transform: translateY(0);
+  }
+  
+  .submit-button:disabled {
+    background-color: #97bfed;
+    cursor: not-allowed;
+    transform: none;
+  }

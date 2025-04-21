@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./style.css";
 import Input from '../../components/Input/Input';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { apiRequest } from '../../service/api';
 import { login } from '../../service/requests';
 
@@ -12,7 +12,7 @@ export default function LoginPage() {
     const [usernameError, setUsernameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const nav = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,38 +40,22 @@ export default function LoginPage() {
         }
         setIsLoading(true);
         const data = await login({ username, password });
-        console.log(data)
         setIsLoading(false);
         // Placeholder login logic (replace with actual API call)
         if (data && data.length > 0) {
-            setIsLoggedIn(true);
+            localStorage.setItem('user', JSON.stringify(data[0]));
+            nav('/home')
 
         } else {
             setError('Invalid username or password');
         }
 
     };
-
-    const handleLogout = () => {
-        setIsLoggedIn(false);
-        setUsername('');
-        setPassword('');
-        setError('');
-        setUsernameError('');
-        setPasswordError('');
-    };
-
-    if (isLoggedIn) {
-        return (
-            <div className="login-success">
-                <h2>Welcome, {username}!</h2>
-                <p>You have successfully logged in.</p>
-                <button onClick={handleLogout}>Logout</button>
-            </div>
-        );
-    }
-
     return (
+        <>
+        <input type="text" placeholder="Enter your name" defaultValue="Bret"/>
+        <input type="text" placeholder="Enter your name" defaultValue="hildegard.org"/>
+
         <div className="login-container">
             <h1>Login</h1>
             {error && <div className="error-message">{error}</div>}
@@ -96,12 +80,12 @@ export default function LoginPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     isDisabled={isLoading}
                     error={passwordError}
-                />
+                    />
                 <button
                     type="submit"
                     className="login-button"
                     disabled={isLoading}
-                >
+                    >
                     {isLoading ? 'Logging in...' : 'Login'}
                 </button>
             </form>
@@ -109,5 +93,6 @@ export default function LoginPage() {
                 Don't have an account? <Link to={"/register"}>Register</Link>
             </div>
         </div>
+                    </>
     );
 }

@@ -10,13 +10,22 @@ const login = async ({username, password}) => {
     }
 }
 
-const register = async ({username, password}) => {
+const checkIsUserNameExist = async ({username}) => {
     try {
-        const response = await apiRequest({ url: '/users', method: 'post', body: { username, website: password } });
+        const response = await apiRequest({ url: `/users?username=${username}`, method: 'get', });
         return response;
     } catch (error) {
         console.error('Register error:', error);
         throw error;
     }
 }
-export { login, register };
+const registerUser = async (user) => {
+    try {
+        const response = await apiRequest({ url: '/users', method: 'post', body: user });
+        return response;
+    } catch (error) {
+        console.error('Register error:', error);
+        throw error;
+    }
+}
+export { login, checkIsUserNameExist,registerUser };

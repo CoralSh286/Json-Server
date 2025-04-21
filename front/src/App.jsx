@@ -4,12 +4,15 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import HomePage from './pages/HomePage/HomePage';
 import UseAuth from './helper/UseAuth/UseAuth';
+import UserDetailsPage from './pages/UserDetailsPage/UserDetailsPage';
 
 function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/register" element={<RegisterPage />}>
+      <Route path="user-details" element={<UserDetailsPage />} />
+      </Route>
       <Route path="/" element={
         <UseAuth>
           <HomePage />

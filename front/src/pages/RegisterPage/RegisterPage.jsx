@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
 import './style.css';
 import Input from '../../components/Input/Input';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import UserDetailsPage from '../UserDetailsPage/UserDetailsPage';
+import { checkIsUserNameExist } from '../../service/requests';
 
 export default function RegisterPage() {
+  const nav = useNavigate()
   const [formData, setFormData] = useState({
     username: '',
-    email: '',
     password: '',
     confirmPassword: ''
   });
   
   const [errors, setErrors] = useState({
     username: '',
-    email: '',
     password: '',
     confirmPassword: ''
   });
-  
+  const [validUser, setValidUser] = useState('');
   const [generalError, setGeneralError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,16 +50,7 @@ export default function RegisterPage() {
       tempErrors.username = 'Username must be at least 3 characters';
       isValid = false;
     }
-    
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email.trim()) {
-      tempErrors.email = 'Email is required';
-      isValid = false;
-    } else if (!emailRegex.test(formData.email)) {
-      tempErrors.email = 'Invalid email format';
-      isValid = false;
-    }
+
     
     // Password validation
     if (!formData.password) {
@@ -88,40 +79,30 @@ export default function RegisterPage() {
     setGeneralError('');
     
     if (validateForm()) {
-      try {
         setIsLoading(true);
-        
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // Success - in a real app, this would be your API registration call
-        setIsRegistered(true);
-        
-      } catch (err) {
-        setGeneralError('Registration failed. Please try again.');
-        console.error('Registration error:', err);
-      } finally {
+        const data = await checkIsUserNameExist({ username: formData.username });
+        nav("user-details")
+        if(data && data.length > 0) {
+          setGeneralError('Username already exists');
+        }
+        else {
+          setValidUser(true);
+        }
         setIsLoading(false);
-      }
-    }
-  };
-
-  const handleLoginRedirect = () => {
-    // In a real app, this would redirect to login page
-    alert('Redirecting to login page...');
-  };
-
-  if (isRegistered) {
-    return (
-      <div className="register-success">
-        <h2>Registration Successful!</h2>
-        <p>Your account has been created.</p>
-        <button onClick={handleLoginRedirect} className="login-redirect-button">
-          Proceed to Login
-        </button>
-      </div>
-    );
+      
+    
   }
+  };
+
+
+
+if(validUser) {
+  return (
+    <>
+<UserDetailsPage username={formData.username} password={formData.password} />
+    </>
+  )
+}
 
   return (
     <div className="register-container">
@@ -140,17 +121,7 @@ export default function RegisterPage() {
           error={errors.username}
         />
         
-        <Input
-          name="email"
-          label="Email"
-          typeProp="email"
-          placeholder="Enter your email"
-          value={formData.email}
-          onChange={handleChange}
-          isDisabled={isLoading}
-          error={errors.email}
-        />
-        
+
         <Input
           name="password"
           label="Password"
