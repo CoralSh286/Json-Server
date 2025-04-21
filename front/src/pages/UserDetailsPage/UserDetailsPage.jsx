@@ -3,7 +3,7 @@ import Input from '../../components/Input/Input'
 import './style.css' // Import the CSS file
 import { registerUser } from '../../service/requests';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
-
+import { IoArrowBackOutline } from "react-icons/io5";
 export default function UserDetailsPage() {
   const { userData, setValidUser } = useOutletContext();
   const { username, password } = userData;
@@ -62,16 +62,13 @@ export default function UserDetailsPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
     try {
-      console.log('user =================>', JSON.stringify(user));
       
-      const res = await registerUser(user);
-      console.log('User registered successfully:', res);
-      // Add success handling here
+      const data = await registerUser(user);
+      localStorage.setItem('user', JSON.stringify(data));
+      nav('/home')
     } catch (error) {
       console.error('Error registering user:', error);
-      // Add error handling here
     }
   };
   const backToRegister = () => {
@@ -80,7 +77,7 @@ export default function UserDetailsPage() {
   };
   return (
     <div className="user-details-container">
-      <button onClick={backToRegister}> { "<"}</button>
+      <button onClick={backToRegister} className='back-btn'> <IoArrowBackOutline /></button>
       <h1 className="user-details-title">User Details</h1>
       
       <form onSubmit={handleSubmit} className="user-details-form">

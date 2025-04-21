@@ -53,8 +53,7 @@ export default function LoginPage() {
     };
     return (
         <>
-        <input type="text" placeholder="Enter your name" defaultValue="Bret"/>
-        <input type="text" placeholder="Enter your name" defaultValue="hildegard.org"/>
+
 
         <div className="login-container">
             <h1>Login</h1>

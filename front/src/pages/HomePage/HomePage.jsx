@@ -1,15 +1,18 @@
 import React from 'react'
-import {  useNavigate } from 'react-router-dom'
-export default function HomePage() {
-  const nav = useNavigate()
-  const LogoutHandler = () => {
-    localStorage.removeItem('user')
-    nav('/login')
-  }
-  return (
-    <div>
+import Header from '../../components/Header/Header'
+import './style.css'
+import { Outlet } from 'react-router-dom'
 
-      <button onClick={LogoutHandler}>Logout</button>
+export default function HomePage() {
+  return (
+    <>
+    <div className="home-page">
+      <Header/>
+      <div className='pagesContainer'>
+
+    <Outlet/>
+      </div>
     </div>
+    </>
   )
 }
