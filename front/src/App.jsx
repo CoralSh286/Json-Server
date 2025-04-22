@@ -10,9 +10,11 @@ import InfoPage from './pages/InfoPage/InfoPage';
 import AlbumsPage from './pages/AlbumsPage/AlbumsPage';
 import PostsPage from './pages/PostsPage/PostsPage';
 import TodosPage from './pages/TodosPage/TodosPage';
+import { PopupProvider } from './helper/UsePopUp/usePopUp';
 
 function App() {
   return (
+    <PopupProvider>
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />}>
@@ -27,6 +29,7 @@ function App() {
       </Route>
       <Route path="*" element={<h1>404 Not Found</h1>} />
     </Routes>
+    </PopupProvider>
   );
 }
 
