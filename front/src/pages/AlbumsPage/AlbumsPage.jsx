@@ -6,6 +6,7 @@ import CrudBar from '../../components/CrudBar/CrudBar'
 import { useApiRequest } from '../../service/api'
 import DisplayData from '../../components/DisplayData/DisplayData'
 import { getUserId } from '../../helper/localStorageHelper'
+import PageHeader from '../../components/PageHeader/PageHeader'
 
 export default function AlbumsPage() {
   const [albums, setAlbums] = useState([]);
@@ -33,28 +34,8 @@ export default function AlbumsPage() {
 
   return (
     <div className="albums-container">
-      <header className="albums-header">
-        <h1 className="albums-title">Albums</h1>
-        <CrudBar editingFor={"albums"} />
-        <div className="albums-search">
-          <input
-            type="text"
-            placeholder="Search albums..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="albums-search-input"
-          />
-          {searchTerm && (
-            <button
-              className="albums-search-clear"
-              onClick={() => setSearchTerm('')}
-              aria-label="Clear search"
-            >
-              ×
-            </button>
-          )}
-        </div>
-      </header>
+      <PageHeader title={"Albums"} />
+      <CrudBar editingFor={"albums"} />
 
       <DisplayData error={error} loading={loading} data={albums}>
 

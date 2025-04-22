@@ -6,6 +6,7 @@ import CrudBar from '../../components/CrudBar/CrudBar'
 import { useApiRequest } from '../../service/api'
 import DisplayData from '../../components/DisplayData/DisplayData'
 import { getUserId } from '../../helper/localStorageHelper'
+import PageHeader from '../../components/PageHeader/PageHeader'
 export default function PostsPage() {
   const [posts, setPosts] = useState([]);
   
@@ -24,7 +25,7 @@ export default function PostsPage() {
 
   return (
     <div className="posts-container">
-      <h1 className="posts-title">Posts</h1>
+     <PageHeader title={"Posts"} />
       <CrudBar editingFor={"posts"} />
 
       <>
