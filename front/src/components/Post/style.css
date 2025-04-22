@@ -9,9 +9,14 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     border-left: 3px solid #4a90e2;
   }
-  
+  .post-card.selected {
+    transform: scale(1.02);
+    background: #4c95d826;
+    box-shadow: 0 0 5px -1px #000;
+    }
+    
   .post-card:hover {
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+   cursor: pointer;
   }
   
   .post-card__header {

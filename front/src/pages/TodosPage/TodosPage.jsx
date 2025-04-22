@@ -28,9 +28,17 @@ export default function TodosPage() {
     const data = await apiRequest({url: urlQuery})
     setTodos(data)
   } 
+
+ const onDelete = async () => {
+    if (!selectedTodo) return; // אם לא נבחרה משימה, אל תעשה כלום
+    const { id } = selectedTodo; // קח את ה-id של המשימה הנבחרת
+    await apiRequest({ url: `/todos/${id}`, method: 'DELETE' }); // מחק את המשימה מה-API
+    setTodos(todos.filter(todo => todo.id !== id)); // עדכן את הסטייט של המשימות
+    setSelectedTodo(null); // נקה את הסטייט של המשימה הנבחרת
+  }
   return (
     <div className="todos-container">
-      <CrudBar editingFor={"todos"} selected={selectedTodo} />
+      <CrudBar editingFor={"todos"} selected={selectedTodo} onDelete={onDelete} />
       <PageHeader title={"Todo List"}  />
       <SortTodos setTodos={setTodos} todos={todos} />
        <SearchBar onSubmit={searchQuery} addCompleat={true} />

@@ -20,6 +20,7 @@ export default function CrudBar({editingFor, selected, onAdd, onDelete, onEdit})
   
   };
   const openPopupForDelete = () => {
+
     openPopup({
       content: <DeletePopUp onDelete={onDelete} onClose={closePopup}/>, // אפשר להעביר כל קומפוננטה
       title: 'Delete',
