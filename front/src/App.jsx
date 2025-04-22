@@ -11,6 +11,7 @@ import AlbumsPage from './pages/AlbumsPage/AlbumsPage';
 import PostsPage from './pages/PostsPage/PostsPage';
 import TodosPage from './pages/TodosPage/TodosPage';
 import { PopupProvider } from './helper/UsePopUp/usePopUp';
+import CommentsPage from './pages/CommentsPage/CommentsPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="" element={<WelcomeBack />} />
         <Route path="albums" element={<AlbumsPage />} />
         <Route path="posts" element={<PostsPage />} />
+            <Route path="posts/comments/:postId?" element={<CommentsPage />} />
         <Route path="todos" element={<TodosPage />} />
         <Route path="info" element={<InfoPage />} />
       </Route>

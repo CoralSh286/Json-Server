@@ -6,7 +6,7 @@
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     padding: 1rem;
     margin-bottom: 1rem;
-
+    border: 2px solid transparent;
     border-left: 3px solid #4a90e2;
   }
 
@@ -20,9 +20,8 @@
     background-color: #f7fafc;
   }
   .todo-card.selected {
-    transform: scale(1.02);
-    background: #4c95d826;
-    box-shadow: 0 0 5px -1px #000;
+    border-color: #3498db;
+    background-color: #f7fbfe;
     }
   .todo-card__content {
     display: flex;
