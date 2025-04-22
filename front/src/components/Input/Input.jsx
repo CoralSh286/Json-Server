@@ -10,7 +10,8 @@ export default function Input({
   error,
   isDisabled = false,
   name,
-  label
+  label,
+  className
 }) {
   const [type, setType] = useState(typeProp);
 
@@ -25,7 +26,7 @@ export default function Input({
 
   return (
     <div className={`input-container ${error ? 'error' : ''} ${isDisabled ? 'disabled' : ''}`}>
-      <label htmlFor={name}>{label || placeholder}</label>
+      {label && <label htmlFor={name}>{label || placeholder}</label>}
       <div className="input-wrapper">
         <input
           type={type}
@@ -33,7 +34,7 @@ export default function Input({
           value={value}
           onChange={onChange}
           disabled={isDisabled}
-          className={`input ${error ? 'error' : ''}`}
+          className={`input${error ? ' error' : ''} ${className ? className : ''}`}
           id={name}
           name={name}
         />
