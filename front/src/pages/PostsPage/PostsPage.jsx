@@ -16,18 +16,17 @@ export default function PostsPage() {
     initialData: []
   });
 
-    
+
   useEffect(() => {
     if (data) {
       setPosts(data);
     }
   }, [data]);
-  const searchQuery = async (form)=>{
-    console.log(form)
-    const urlQuery =  `/posts?userId=${userId}${form.title ? "&title=" + form.title : ""}${form.id ? "&id=" + form.id : ""}`
-    const data = await apiRequest({url: urlQuery})
+  const searchQuery = async (form) => {
+    const urlQuery = `/posts?userId=${userId}${form.title ? "&title=" + form.title : ""}${form.id ? "&id=" + form.id : ""}`
+    const data = await apiRequest({ url: urlQuery })
     setPosts(data)
-  } 
+  }
   const onDelete = async () => {
     if (!selectedPost) return; // אם לא נבחרה משימה, אל תעשה כלום
     const { id } = selectedPost; // קח את ה-id של המשימה הנבחרת
@@ -37,16 +36,16 @@ export default function PostsPage() {
   }
   return (
     <div className="posts-container" >
-     <PageHeader title={"Posts"} />
-      <CrudBar editingFor={"posts"} onDelete={onDelete} selected={selectedPost}/>
+      <CrudBar editingFor={"posts"} onDelete={onDelete} selected={selectedPost} />
+      <PageHeader title={"Posts"} />
       <SearchBar onSubmit={searchQuery} />
-        <DisplayData error={error} loading={loading} data={posts}>
-          <div className="posts-grid">
-            {posts.map(post => (
-              <Post key={post.id} {...post} selected={selectedPost} setSelected={setSelectedPost} />
-            ))}
-          </div>
-        </DisplayData>
+      <DisplayData error={error} loading={loading} data={posts}>
+        <div className="posts-grid">
+          {posts.map(post => (
+            <Post key={post.id} {...post} selected={selectedPost} setSelected={setSelectedPost} />
+          ))}
+        </div>
+      </DisplayData>
     </div>
   )
 }

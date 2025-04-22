@@ -21,16 +21,16 @@ export default function AlbumsPage() {
       setAlbums(data);
     }
   }, [data]);
-  const searchQuery =async (form)=>{
-    const urlQuery =  `/albums?userId=${userId}${form.title ? "&title=" + form.title : ""}${form.id ? "&id=" + form.id : ""}`
-    const data = await apiRequest({url: urlQuery})
+  const searchQuery = async (form) => {
+    const urlQuery = `/albums?userId=${userId}${form.title ? "&title=" + form.title : ""}${form.id ? "&id=" + form.id : ""}`
+    const data = await apiRequest({ url: urlQuery })
     setAlbums(data)
-  } 
+  }
   return (
     <div className="albums-container">
       <PageHeader title={"Albums"} />
       <CrudBar editingFor={"albums"} />
-       <SearchBar onSubmit={searchQuery} />
+      <SearchBar onSubmit={searchQuery} />
       <DisplayData error={error} loading={loading} data={albums}>
         <div className="albums-grid">
           {albums.map(album => (
