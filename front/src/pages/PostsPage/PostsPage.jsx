@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { getPosts } from '../../service/requests'
 import Post from '../../components/Post/Post'
 import './style.css'
 import CrudBar from '../../components/CrudBar/CrudBar'
@@ -11,7 +10,7 @@ export default function PostsPage() {
   const [posts, setPosts] = useState([]);
   
   const userId = getUserId()
-  const { data, loading, error, fetchData } = useApiRequest({
+  const { data, loading, error } = useApiRequest({
     url: `/posts?userId=${userId}`, // הנתיב לקבלת פוסטים מה-API
     initialData: []
   });
@@ -27,8 +26,6 @@ export default function PostsPage() {
     <div className="posts-container">
      <PageHeader title={"Posts"} />
       <CrudBar editingFor={"posts"} />
-
-      <>
         <DisplayData error={error} loading={loading} data={posts}>
           <div className="posts-grid">
             {posts.map(post => (
@@ -36,7 +33,6 @@ export default function PostsPage() {
             ))}
           </div>
         </DisplayData>
-      </>
     </div>
   )
 }

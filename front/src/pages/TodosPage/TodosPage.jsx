@@ -14,14 +14,11 @@ export default function TodosPage() {
     url: `/todos?userId=${userId}`, // הנתיב לקבלת משימות מה-API
     initialData: []
   });
-
   useEffect(() => {
     if (data) {
       setTodos(data);
     }
   }, [data]);
-
- 
   return (
     <div className="todos-container">
       <CrudBar editingFor={"todos"} />
