@@ -3,38 +3,39 @@ import { getAlbums } from '../../service/requests'
 import Album from '../../components/Album/Album'
 import './style.css'
 import CrudBar from '../../components/CrudBar/CrudBar'
+import { useApiRequest } from '../../service/api'
+import DisplayData from '../../components/DisplayData/DisplayData'
+import { getUserId } from '../../helper/localStorageHelper'
 
 export default function AlbumsPage() {
-  const [albums, setAlbums] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [searchTerm, setSearchTerm] = useState('')
+  const [albums, setAlbums] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const userId = getUserId()
+  const { data, loading, error, fetchData } = useApiRequest({
+    url: `/albums?userId=${userId}`, // הנתיב לקבלת אלבומים מה-API
+    initialData: []
+  });
 
   useEffect(() => {
-    getData()
-  }, [])
-  
-  const getData = async () => {
-    try {
-      setLoading(true)
-      const data = await getAlbums()
-      setAlbums(data)
-    } catch (error) {
-      console.error("Error fetching albums:", error)
-    } finally {
-      setLoading(false)
+    if (data) {
+      setAlbums(data);
     }
-  }
+  }, [data]);
 
-  // Filter albums based on search term
-  const filteredAlbums = albums.filter(album => 
+
+
+  // פילטור אלבומים לפי מונח חיפוש
+  const filteredAlbums = albums.filter(album =>
     album.title.toLowerCase().includes(searchTerm.toLowerCase())
-  )
-  
+  );
+
+
+
   return (
     <div className="albums-container">
       <header className="albums-header">
         <h1 className="albums-title">Albums</h1>
-           <CrudBar editingFor={"albums"}/>
+        <CrudBar editingFor={"albums"} />
         <div className="albums-search">
           <input
             type="text"
@@ -44,8 +45,8 @@ export default function AlbumsPage() {
             className="albums-search-input"
           />
           {searchTerm && (
-            <button 
-              className="albums-search-clear" 
+            <button
+              className="albums-search-clear"
               onClick={() => setSearchTerm('')}
               aria-label="Clear search"
             >
@@ -54,40 +55,15 @@ export default function AlbumsPage() {
           )}
         </div>
       </header>
-      
-      {loading ? (
-        <div className="albums-loading">
-          <div className="albums-loading-spinner"></div>
+
+      <DisplayData error={error} loading={loading} data={albums}>
+
+        <div className="albums-grid">
+          {filteredAlbums.map(album => (
+            <Album key={album.id} {...album} />
+          ))}
         </div>
-      ) : (
-        <>
-          <div className="albums-count">
-            {filteredAlbums.length === 0 ? (
-              <p>No albums found matching "{searchTerm}"</p>
-            ) : searchTerm ? (
-              <p>Found {filteredAlbums.length} album{filteredAlbums.length !== 1 ? 's' : ''} matching "{searchTerm}"</p>
-            ) : (
-              <p>Showing all {filteredAlbums.length} album{filteredAlbums.length !== 1 ? 's' : ''}</p>
-            )}
-          </div>
-          
-          {filteredAlbums.length > 0 ? (
-            <div className="albums-grid">
-              {filteredAlbums.map(album => (
-                <Album key={album.id} {...album} />
-              ))}
-            </div>
-          ) : (
-            <div className="albums-empty">
-              {searchTerm ? (
-                <p>No albums found. Try a different search term.</p>
-              ) : (
-                <p>No albums available. Check back later.</p>
-              )}
-            </div>
-          )}
-        </>
-      )}
+      </DisplayData>
     </div>
   )
 }

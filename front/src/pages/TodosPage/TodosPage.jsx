@@ -3,26 +3,27 @@ import { getTodos } from '../../service/requests'
 import Todo from '../../components/Todo/Todo'
 import './style.css'
 import CrudBar from '../../components/CrudBar/CrudBar'
+import { useApiRequest } from '../../service/api'
+import DisplayData from '../../components/DisplayData/DisplayData'
+import { getUserId } from '../../helper/localStorageHelper'
 
 export default function TodosPage() {
-  const [todos, setTodos] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [filter, setFilter] = useState('all') // 'all', 'active', 'completed'
+  const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState('all'); // 'all', 'active', 'completed'
+  const userId = getUserId()
+  const { data, loading, error, fetchData } = useApiRequest({
+    url: `/todos?userId=${userId}`, // הנתיב לקבלת משימות מה-API
+    initialData: []
+  });
 
-  useEffect(() => { 
-    getData()
-  }, [])
-  
-  const getData = async () => {
-    try {
-      setLoading(true)
-      const data = await getTodos()
-      setTodos(data)
-    } catch (error) {
-      console.error("Error fetching todos:", error)
-    } finally {
-      setLoading(false)
+  useEffect(() => {
+    if (data) {
+      setTodos(data);
     }
+  }, [data]);
+
+  if (error) {
+    return <div>שגיאה בטעינת נתונים: {error.message}</div>;
   }
 
   // Filter todos based on selected filter
@@ -36,27 +37,27 @@ export default function TodosPage() {
   // Get stats for summary
   const completedCount = todos.filter(todo => todo.completed).length
   const totalCount = todos.length
-  
+
   return (
     <div className="todos-container">
-      <CrudBar editingFor={"todos"}/>
+      <CrudBar editingFor={"todos"} />
       <header className="todos-header">
         <h1 className="todos-title">Todo List</h1>
-        
+
         <div className="todos-filters">
-          <button 
+          <button
             className={`todos-filter-btn ${filter === 'all' ? 'active' : ''}`}
             onClick={() => setFilter('all')}
           >
             All
           </button>
-          <button 
+          <button
             className={`todos-filter-btn ${filter === 'active' ? 'active' : ''}`}
             onClick={() => setFilter('active')}
           >
             Active
           </button>
-          <button 
+          <button
             className={`todos-filter-btn ${filter === 'completed' ? 'active' : ''}`}
             onClick={() => setFilter('completed')}
           >
@@ -68,36 +69,19 @@ export default function TodosPage() {
       <div className="todos-summary">
         <span>{completedCount} of {totalCount} tasks completed</span>
         <div className="todos-progress">
-          <div 
-            className="todos-progress-bar" 
+          <div
+            className="todos-progress-bar"
             style={{ width: `${totalCount ? (completedCount / totalCount) * 100 : 0}%` }}
           ></div>
         </div>
       </div>
-      
-      {loading ? (
-        <div className="todos-loading">
-          <div className="todos-loading-spinner"></div>
+      <DisplayData error={error} loading={loading} data={todos}>
+        <div className="todos-list">
+          {filteredTodos.map(todo => (
+            <Todo key={todo.id} {...todo} />
+          ))}
         </div>
-      ) : (
-        <>
-          {filteredTodos.length > 0 ? (
-            <div className="todos-list">
-              {filteredTodos.map(todo => (
-                <Todo key={todo.id} {...todo} />
-              ))}
-            </div>
-          ) : (
-            <div className="todos-empty">
-              {filter === 'all' 
-                ? "No todos found. Add some tasks to get started!" 
-                : filter === 'active' 
-                  ? "No active tasks. Great job!" 
-                  : "No completed tasks yet. Complete some tasks to see them here!"}
-            </div>
-          )}
-        </>
-      )}
+      </DisplayData>
     </div>
   )
 }

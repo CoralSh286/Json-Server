@@ -3,49 +3,39 @@ import { getPosts } from '../../service/requests'
 import Post from '../../components/Post/Post'
 import './style.css'
 import CrudBar from '../../components/CrudBar/CrudBar'
-
+import { useApiRequest } from '../../service/api'
+import DisplayData from '../../components/DisplayData/DisplayData'
+import { getUserId } from '../../helper/localStorageHelper'
 export default function PostsPage() {
-  const [posts, setPosts] = useState([])
-  const [loading, setLoading] = useState(true)
-  useEffect(() => { 
-    getData()
-  }, [])
+  const [posts, setPosts] = useState([]);
   
-  const getData = async () => {
-    try {
-      setLoading(true)
-      const data = await getPosts()
-      setPosts(data)
-    } catch (error) {
-      console.error("Error fetching posts:", error)
-    } finally {
-      setLoading(false)
+  const userId = getUserId()
+  const { data, loading, error, fetchData } = useApiRequest({
+    url: `/posts?userId=${userId}`, // הנתיב לקבלת פוסטים מה-API
+    initialData: []
+  });
+
+  // עדכון הסטייט בכל פעם שה-data משתנה
+  useEffect(() => {
+    if (data) {
+      setPosts(data);
     }
-  }
-  
+  }, [data]);
+
   return (
     <div className="posts-container">
       <h1 className="posts-title">Posts</h1>
-      <CrudBar editingFor={"posts"}/>
-      {loading ? (
-        <div className="posts-loading">
-          <div className="posts-loading-spinner"></div>
-        </div>
-      ) : (
-        <>
-          {posts.length > 0 ? (
-            <div className="posts-grid">
-              {posts.map(post => (
-                <Post key={post.id} {...post} />
-              ))}
-            </div>
-          ) : (
-            <div className="posts-empty">
-              No posts found. Check back later.
-            </div>
-          )}
-        </>
-      )}
+      <CrudBar editingFor={"posts"} />
+
+      <>
+        <DisplayData error={error} loading={loading} data={posts}>
+          <div className="posts-grid">
+            {posts.map(post => (
+              <Post key={post.id} {...post} />
+            ))}
+          </div>
+        </DisplayData>
+      </>
     </div>
   )
 }
