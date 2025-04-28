@@ -12,18 +12,18 @@ import DeletePopUp from '../DeletePopUp/DeletePopUp';
 
 
 
-export default function CrudBar({editingFor, selected, onDelete , inputsValue}) {
+export default function CrudBar({editingFor, selected, onDelete , inputsValue , additionalData}) {
   const { openPopup, closePopup } = usePopup();
  
   const openPopupForEdit = () => {
     openPopup({
-      content: <EditorPopUp isNew={false} inputsValue={inputsValue}  onClose={closePopup} editingFor={editingFor} title={editingFor}/>, // אפשר להעביר כל קומפוננטה
+      content: <EditorPopUp isNew={false} inputsValue={inputsValue}  additionalData={additionalData} onClose={closePopup} editingFor={editingFor} />, // אפשר להעביר כל קומפוננטה
     });
   
   };
   const openPopupForCreate = () => {
     openPopup({
-      content: <EditorPopUp isNew={true}  onClose={closePopup} title={editingFor} editingFor={editingFor}/>, // אפשר להעביר כל קומפוננטה
+      content: <EditorPopUp isNew={true}  onClose={closePopup}  additionalData={additionalData} editingFor={editingFor}/>, // אפשר להעביר כל קומפוננטה
     });
   
   };
