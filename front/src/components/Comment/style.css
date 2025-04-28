@@ -6,10 +6,15 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 16px;
     margin-bottom: 16px;
+    border: 2px solid transparent;
+    cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   
-
+  .comment.selected {
+    border-color: #3498db;
+    background-color: #f7fbfe;
+  }
   .comment-header {
     display: flex;
     justify-content: space-between;

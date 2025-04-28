@@ -8,13 +8,17 @@
     display: flex;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     height: 100%;
+    border: 2px solid transparent;
   }
-  
   .album-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   }
   
+.album-card.selected {
+  border-color: #3498db;
+  background-color: #f7fbfe;
+}
   .album-card__thumbnail {
     width: 100px;
     display: flex;

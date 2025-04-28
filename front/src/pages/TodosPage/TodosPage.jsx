@@ -38,7 +38,10 @@ export default function TodosPage() {
   }
   return (
     <div className="todos-container">
-      <CrudBar editingFor={"todos"} selected={selectedTodo} additionalData={{userId:userId}} inputsValue={{title:selectedTodo?.title, completed:selectedTodo?.completed , id:selectedTodo?.id}} onDelete={onDelete} />
+      <CrudBar editingFor={"todos"}
+       selected={selectedTodo}
+        additionalData={{userId:userId}} 
+        onDelete={onDelete} />
       <PageHeader title={"Todo List"}  />
       <SortTodos setTodos={setTodos} todos={todos} />
        <SearchBar onSubmit={searchQuery} addCompleat={true} />
