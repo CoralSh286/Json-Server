@@ -12,25 +12,28 @@ import PostsPage from './pages/PostsPage/PostsPage';
 import TodosPage from './pages/TodosPage/TodosPage';
 import { PopupProvider } from './helper/UsePopUp/usePopUp';
 import CommentsPage from './pages/CommentsPage/CommentsPage';
+import PhotosPage from './pages/PhotosPage/PhotosPage';
 
 function App() {
   return (
     <PopupProvider>
-    <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />}>
-        <Route path="user-details" element={<UserDetailsPage />} />
-      </Route>
-      <Route path="/home" element={<HomePage />}>
-        <Route path="" element={<WelcomeBack />} />
-        <Route path="albums" element={<AlbumsPage />} />
-        <Route path="posts" element={<PostsPage />} />
-            <Route path="posts/comments/:postId?" element={<CommentsPage />} />
-        <Route path="todos" element={<TodosPage />} />
-        <Route path="info" element={<InfoPage />} />
-      </Route>
-      <Route path="*" element={<h1>404 Not Found</h1>} />
-    </Routes>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />}>
+          <Route path="user-details" element={<UserDetailsPage />} />
+        </Route>
+        <Route path="/home" element={<HomePage />}>
+          <Route path="" element={<WelcomeBack />} />
+          <Route path="albums" element={<AlbumsPage />} />
+          <Route path="albums/:albumId/photos" element={<PhotosPage />} />
+          <Route path="posts" element={<PostsPage />} />
+          <Route path="posts/comments/:postId?" element={<CommentsPage />} />
+          <Route path="todos" element={<TodosPage />} />
+          <Route path="info" element={<InfoPage />} />
+        </Route>
+        <Route path="*" element={<h1>404 Not Found</h1>} />
+      </Routes>
     </PopupProvider>
   );
 }
