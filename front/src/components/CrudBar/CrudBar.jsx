@@ -10,12 +10,20 @@ import DeletePopUp from '../DeletePopUp/DeletePopUp';
 // This component is used to display a CRUD bar with add, delete, and edit buttons
 // It is used in the Post, Album, and Todo components
 
-export default function CrudBar({editingFor, selected, onAdd, onDelete, onEdit}) {
+
+
+export default function CrudBar({editingFor, selected, onDelete , inputsValue}) {
   const { openPopup, closePopup } = usePopup();
+ 
   const openPopupForEdit = () => {
     openPopup({
-      content: <EditorPopUp onEdit={onEdit}/>, // אפשר להעביר כל קומפוננטה
-      title: 'Edit',
+      content: <EditorPopUp isNew={false} inputsValue={inputsValue}  onClose={closePopup} editingFor={editingFor} title={editingFor}/>, // אפשר להעביר כל קומפוננטה
+    });
+  
+  };
+  const openPopupForCreate = () => {
+    openPopup({
+      content: <EditorPopUp isNew={true}  onClose={closePopup} title={editingFor} editingFor={editingFor}/>, // אפשר להעביר כל קומפוננטה
     });
   
   };
@@ -31,7 +39,7 @@ export default function CrudBar({editingFor, selected, onAdd, onDelete, onEdit})
       <button 
         className='crud-button add-button' 
         title={`Add new ${editingFor}`}
-        onClick={() => onAdd && onAdd()}
+        onClick={() => openPopupForCreate()}
       >
         <IoAddOutline />
       </button>

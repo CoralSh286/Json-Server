@@ -36,6 +36,8 @@ const useApiRequest = ({url, method = 'get', initialData = null , body= {}}) => 
   return { data, loading, error, fetchData };
 };
 const  apiRequest = async ({url, method, body , }) => { 
+  console.log("url",url);
+  
         try {
         const response = await axios({
             baseURL: URL,

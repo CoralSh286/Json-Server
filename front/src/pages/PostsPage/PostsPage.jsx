@@ -36,7 +36,7 @@ export default function PostsPage() {
   }
   return (
     <div className="posts-container" >
-      <CrudBar editingFor={"posts"} onDelete={onDelete} selected={selectedPost} />
+      <CrudBar editingFor={"posts"} onDelete={onDelete} inputsValue={{title:selectedPost?.title, body:selectedPost?.body}} selected={selectedPost} />
       <PageHeader title={"Posts"} />
       <SearchBar onSubmit={searchQuery} />
       <DisplayData error={error} loading={loading} data={posts}>
