@@ -28,7 +28,7 @@ function App() {
           <Route path="albums" element={<AlbumsPage />} />
           <Route path="albums/:albumId/photos" element={<PhotosPage />} />
           <Route path="posts" element={<PostsPage />} />
-          <Route path="posts/comments/:postId?" element={<CommentsPage />} />
+          <Route path="posts/:postId/comments" element={<CommentsPage />} />
           <Route path="todos" element={<TodosPage />} />
           <Route path="info" element={<InfoPage />} />
         </Route>

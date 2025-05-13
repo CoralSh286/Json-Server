@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { apiRequest, useApiRequest } from '../../service/api';
 import DisplayData from '../../components/DisplayData/DisplayData';
 import Comment from '../../components/Comment/Comment';
@@ -9,10 +9,10 @@ import CrudBar from '../../components/CrudBar/CrudBar';
 
 export default function CommentsPage() {
     const [searchParams] = useSearchParams();
-    const postId = searchParams.get('postId');
+    const {postId} = useParams();
     const [selected, setSelected] = useState(null);
     const [comments, setComments] = useState([]);
-    const { data, loading, error } = useApiRequest({
+    const { data, loading, error ,refetch} = useApiRequest({
         url: `/comments?postId=${postId}`,
         initialData: []
     });
@@ -28,11 +28,12 @@ export default function CommentsPage() {
         await apiRequest({ url: `/comments/${id}`, method: 'DELETE' }); // מחק את המשימה מה-API
         setComments(comments.filter(comment => comment.id !== id)); // עדכן את הסטייט של המשימות
         selected(null); // נקה את הסטייט של המשימה הנבחרת
+        refetch()
     }
     return (
         <div className="comments-page">
             <PageHeader title={`Comments for Post #${postId}`} />
-            <CrudBar additionalData={{ postId }} editingFor="comments"  selected={selected} onDelete={onDelete} />
+            <CrudBar additionalData={{ postId }} refetchFunction={refetch} editingFor="comments"  selected={selected} onDelete={onDelete} />
             <DisplayData error={error} loading={loading} data={comments}>
                 <div className="comments-container">
                     {comments.map(comment => (

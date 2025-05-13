@@ -36,13 +36,27 @@ export default function PhotosPage() {
         // Scroll to top when changing pages
         window.scrollTo(0, 0);
     };
-    const onDelete = async () => {
-        if (!selectedPhoto) return; // אם לא נבחרה משימה, אל תעשה כלום
-        const { id } = selectedPhoto; // קח את ה-id של המשימה הנבחרת
-        await apiRequest({ url: `/photos/${id}`, method: 'DELETE' }); // מחק את המשימה מה-API
-        refetch()
-        setSelectedPhoto(null); // נקה את הסטייט של המשימה הנבחרת
+const onDelete = async () => {
+    if (!selectedPhoto) return;
+    
+    const { id } = selectedPhoto;
+    
+    try {
+        const photoId = String(id);
+        
+        await apiRequest({ 
+            url: `/photos/${photoId}`, 
+            method: 'DELETE' 
+        });
+        
+        await refetch();
+        setSelectedPhoto(null);
+        
+        console.log('Photo deleted successfully');
+    } catch (error) {
+        console.error('Failed to delete photo:', error);
     }
+};
 
     return (
         <div className="photos-page">

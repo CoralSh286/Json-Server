@@ -38,21 +38,27 @@ const useApiRequest = ({ url, method = 'get', initialData = null, body = {} }) =
 
   return { data, loading, error, refetch };
 };
-const  apiRequest = async ({url, method, body }) => {
-        try {
-        const response = await axios({
+const apiRequest = async ({ url, method, body }) => {
+    try {
+        const config = {
             baseURL: URL,
             url,
+            method,
             headers: {
                 'Content-Type': 'application/json',
-            },
-            method,
-            data: JSON.stringify(body),
-    
-        });
+            }
+        };
+
+        // Only add data if there's a body and it's not a DELETE request
+        if (body && method.toUpperCase() !== 'DELETE') {
+            config.data = body; // json-server expects plain objects, not stringified
+        }
+
+        const response = await axios(config);
         return response.data;
-        } catch (err) {
-            console.error('API request error:', err);
-        } 
+    } catch (err) {
+        console.error('API request error:', err);
+        throw err; // Re-throw to handle in the calling function
     }
+};
 export  {useApiRequest, apiRequest};
