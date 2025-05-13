@@ -7,11 +7,16 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
   cursor: pointer;
+   border: 2px solid transparent;
 }
 
 .photo-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+.photo-card.selected {
+  border-color: #3498db;
+  background-color: #f7fbfe;
 }
 
 .photo-info {

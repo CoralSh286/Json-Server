@@ -6,7 +6,6 @@ export default function Post({id, title, body, selected, setSelected}) {
   const [isExpanded, setIsExpanded] = useState(false);
   
   const toggleExpand = (e) => {
-    // Stop event propagation to prevent the card selection when clicking this button
     e.stopPropagation();
     setIsExpanded(!isExpanded);
   };
@@ -18,7 +17,6 @@ export default function Post({id, title, body, selected, setSelected}) {
   }
   
   const handleCommentsClick = (e) => {
-    // Stop event propagation to prevent the card selection when clicking comments
     e.stopPropagation();
   }
 
@@ -38,7 +36,7 @@ export default function Post({id, title, body, selected, setSelected}) {
         </button>
         
         <Link 
-          to={`comments?postId=${id}`} 
+          to={`${id}/comments`} 
           className="post-card__comments-link"
           onClick={handleCommentsClick}
         >
