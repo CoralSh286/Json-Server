@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 const URL = "http://localhost:3000/";
-const useApiRequest = ({url, method = 'get', initialData = null , body= {}}) => {
+const useApiRequest = ({ url, method = 'get', initialData = null, body = {} }) => {
   const [data, setData] = useState(initialData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -15,8 +15,7 @@ const useApiRequest = ({url, method = 'get', initialData = null , body= {}}) => 
         baseURL: URL,
         url,
         method,
-        body,
-
+        data: body, // Changed from 'body' to 'data' - axios expects 'data' property
       });
       setData(response.data);
       return response.data;
@@ -28,12 +27,16 @@ const useApiRequest = ({url, method = 'get', initialData = null , body= {}}) => 
     }
   };
 
+  // Memoized refetch function that can be called manually
+  const refetch = useCallback(() => {
+    return fetchData();
+  }, [url, method, body]);
 
   useEffect(() => {
-      fetchData();
+    fetchData();
   }, [url, method]);
 
-  return { data, loading, error, fetchData };
+  return { data, loading, error, refetch };
 };
 const  apiRequest = async ({url, method, body }) => {
         try {

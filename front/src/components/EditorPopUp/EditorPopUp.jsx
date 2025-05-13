@@ -2,7 +2,7 @@ import React from 'react'
 import "./style.css"
 import { apiRequest } from '../../service/api';
 import FormInputs from '../FormInputs/FormInputs';
-export default function EditorPopUp({  isNew, onClose, inputsValue , editingFor,additionalData={} }) {
+export default function EditorPopUp({  isNew, onClose, inputsValue , editingFor,additionalData={} ,refetchFunction}) {
   const subTitle = isNew ? "Create" : "Edit"
 
   const handleSubmit = (e) => {
@@ -22,7 +22,7 @@ export default function EditorPopUp({  isNew, onClose, inputsValue , editingFor,
       body: {...formEntries, ...additionalData}
     }).then((res) => {
     });
-    
+    refetchFunction()
     onClose();
   };
   

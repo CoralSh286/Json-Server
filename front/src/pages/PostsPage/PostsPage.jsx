@@ -11,7 +11,7 @@ export default function PostsPage() {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null); // הסטייט של המשימה הנבחרת
   const userId = getUserId()
-  const { data, loading, error } = useApiRequest({
+  const { data, loading, error,refetch } = useApiRequest({
     url: `/posts?userId=${userId}`, // הנתיב לקבלת פוסטים מה-API
     initialData: []
   });
@@ -31,13 +31,14 @@ export default function PostsPage() {
     if (!selectedPost) return; // אם לא נבחרה משימה, אל תעשה כלום
     const { id } = selectedPost; // קח את ה-id של המשימה הנבחרת
     await apiRequest({ url: `/posts/${id}`, method: 'DELETE' }); // מחק את המשימה מה-API
-    setPosts(posts.filter(post => post.id !== id)); // עדכן את הסטייט של המשימות
+    refetch()
     setSelectedPost(null); // נקה את הסטייט של המשימה הנבחרת
   }
   return (
     <div className="posts-container" >
       <CrudBar editingFor={"posts"}
         onDelete={onDelete}
+        refetchFunction={refetch}
         additionalData={{ userId: userId }}
         selected={selectedPost} />
       <PageHeader title={"Posts"} />

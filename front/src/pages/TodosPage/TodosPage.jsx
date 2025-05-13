@@ -13,7 +13,7 @@ export default function TodosPage() {
   const [todos, setTodos] = useState([]);
   const [selectedTodo, setSelectedTodo] = useState(null); // הסטייט של המשימה הנבחרת
   const userId = getUserId()
-  const { data, loading, error } = useApiRequest({
+  const { data, loading, error , refetch } = useApiRequest({
     url: `/todos?userId=${userId}`, // הנתיב לקבלת משימות מה-API
     initialData: []
   });
@@ -33,12 +33,13 @@ export default function TodosPage() {
     if (!selectedTodo) return; // אם לא נבחרה משימה, אל תעשה כלום
     const { id } = selectedTodo; // קח את ה-id של המשימה הנבחרת
     await apiRequest({ url: `/todos/${id}`, method: 'DELETE' }); // מחק את המשימה מה-API
-    setTodos(todos.filter(todo => todo.id !== id)); // עדכן את הסטייט של המשימות
+    refetch()
     setSelectedTodo(null); // נקה את הסטייט של המשימה הנבחרת
   }
   return (
     <div className="todos-container">
       <CrudBar editingFor={"todos"}
+      refetchFunction={ refetch}
        selected={selectedTodo}
         additionalData={{userId:userId}} 
         onDelete={onDelete} />
