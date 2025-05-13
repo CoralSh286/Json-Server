@@ -31,7 +31,6 @@ export default function Album({title, id , selected, setSelected}) {
       <div className="album-card__content">
         <h2 className="album-card__title">{title}</h2>
         <span className="album-card__id">Album #{id}</span>
-        
         <Link to={`${id}/photos`} className="album-card__link">
           View Album
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -1,57 +1,73 @@
-/* Comment Component Styles */
+/* Photo Card Styles - White Theme, Smaller Size */
+.photo-card {
+  width: 200px;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
 
-.comment {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    margin-bottom: 16px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  
+.photo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
 
-  .comment-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
+.photo-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+.photo-title {
+  order: 2;
+  width: 100%;
+  margin: 0;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+  text-align: center;
+  background: #f8f9fa;
+  border-top: 1px solid #e5e5e5;
+}
+
+.photo-info img {
+  order: 1;
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  display: block;
+  border-radius: 10px;
+}
+
+/* Grid Layout for multiple cards */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .photo-card {
+    width: 100%;
   }
-  
-  .comment-name {
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
-    margin: 0;
-    flex: 1;
-    min-width: 200px;
-  }
-  
-  .comment-email {
-    color: #666;
-    font-size: 14px;
-    background-color: #f0f0f0;
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-left: 8px;
-  }
-  
-  .comment-body {
-    color: #444;
-    line-height: 1.5;
-    margin: 0;
-    font-size: 15px;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .comment-header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    
-    .comment-email {
-      margin-left: 0;
-      margin-top: 8px;
-    }
-  }
+}
+
+/* Optional: Compact version */
+.photo-card.compact {
+  width: 150px;
+}
+
+.photo-card.compact .photo-info img {
+  height: 100px;
+}
+
+.photo-card.compact .photo-title {
+  font-size: 12px;
+  padding: 8px 12px;
+}
