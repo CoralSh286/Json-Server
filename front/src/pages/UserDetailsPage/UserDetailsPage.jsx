@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Input from '../../components/Input/Input'
 import './style.css' // Import the CSS file
 import { registerUser } from '../../service/requests';
-import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { IoArrowBackOutline } from "react-icons/io5";
 export default function UserDetailsPage() {
   const { userData, setValidUser } = useOutletContext();

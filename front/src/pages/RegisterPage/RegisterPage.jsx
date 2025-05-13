@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './style.css';
 import Input from '../../components/Input/Input';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import UserDetailsPage from '../UserDetailsPage/UserDetailsPage';
 import { checkIsUserNameExist } from '../../service/requests';
 
 export default function RegisterPage() {

@@ -7,8 +7,9 @@
   padding: 2rem;
   width: 100%;
   max-width: 800px;
-  margin: 2rem auto;
   position: relative;
+  overflow: auto;
+  height: 100vh;
 }
 
 .user-details-container button.back-btn {
