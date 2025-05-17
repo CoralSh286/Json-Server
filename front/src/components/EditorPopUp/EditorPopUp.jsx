@@ -2,6 +2,8 @@ import React from 'react'
 import "./style.css"
 import { apiRequest } from '../../service/api';
 import FormInputs from '../FormInputs/FormInputs';
+
+
 export default function EditorPopUp({  isNew, onClose, inputsValue , editingFor,additionalData={} ,refetchFunction}) {
   const subTitle = isNew ? "Create" : "Edit"
 
@@ -64,25 +66,4 @@ export default function EditorPopUp({  isNew, onClose, inputsValue , editingFor,
       </div>
     </div>
   )
-}
-function editorValues({ editingFor, isNew, }) {
-  switch (editingFor) {
-    case "posts":
-      return {
-        children: <></>,
-        methodUrl: "/posts",
-      }
-    case "albums":
-      return {
-        children: <></>,
-        methodUrl: "/posts",
-      }
-    case "todos":
-      return {
-        children: <></>,
-        methodUrl: "/posts",
-      }
-    default:
-      return <></>
-  }
 }

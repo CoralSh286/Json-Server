@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useState, useEffect, useCallback } from 'react';
 const URL = "http://localhost:3000/";
+
+
 const useApiRequest = ({ url, method = 'get', initialData = null, body = {} }) => {
   const [data, setData] = useState(initialData);
   const [loading, setLoading] = useState(false);
@@ -11,14 +13,13 @@ const useApiRequest = ({ url, method = 'get', initialData = null, body = {} }) =
     setError(null);
     
     try {
-      const response = await axios({
-        baseURL: URL,
+      const response = await apiRequest({
         url,
         method,
         data: body, // Changed from 'body' to 'data' - axios expects 'data' property
       });
-      setData(response.data);
-      return response.data;
+      setData(response);
+      return response;
     } catch (err) {
       setError(err);
       throw err;
@@ -38,6 +39,8 @@ const useApiRequest = ({ url, method = 'get', initialData = null, body = {} }) =
 
   return { data, loading, error, refetch };
 };
+
+
 const apiRequest = async ({ url, method, body }) => {
     try {
         const config = {
@@ -45,7 +48,7 @@ const apiRequest = async ({ url, method, body }) => {
             url,
             method,
             headers: {
-                'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
             }
         };
 

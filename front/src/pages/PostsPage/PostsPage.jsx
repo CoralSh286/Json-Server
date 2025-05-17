@@ -7,6 +7,8 @@ import DisplayData from '../../components/DisplayData/DisplayData'
 import { getUserId } from '../../helper/localStorageHelper'
 import PageHeader from '../../components/PageHeader/PageHeader'
 import SearchBar from '../../components/SearchBar/SearchBar'
+
+
 export default function PostsPage() {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null); // הסטייט של המשימה הנבחרת

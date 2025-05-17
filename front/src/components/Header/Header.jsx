@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { FaUserAlt } from "react-icons/fa";
-import jsonLogo from '../../assets/images/json-image.png'; // Update with correct path to logo
+import jsonLogo from '../../assets/images/json-image.png'; 
 import './style.css'
 import { getUserName } from '../../helper/localStorageHelper';
 

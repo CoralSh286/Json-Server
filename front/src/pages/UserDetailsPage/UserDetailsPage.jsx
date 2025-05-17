@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import Input from '../../components/Input/Input'
 import './style.css' // Import the CSS file
-import { registerUser } from '../../service/requests';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { IoArrowBackOutline } from "react-icons/io5";
+import { apiRequest } from '../../service/api';
+
+
 export default function UserDetailsPage() {
   const { userData, setValidUser } = useOutletContext();
   const { username, password } = userData;
@@ -64,7 +66,7 @@ export default function UserDetailsPage() {
     e.preventDefault();
     try {
       
-      const data = await registerUser(user);
+      const data = await apiRequest({ url: '/users', method: 'post', body: user  });
       localStorage.setItem('user', JSON.stringify(data));
       nav('/home')
     } catch (error) {

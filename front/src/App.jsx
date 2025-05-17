@@ -3,7 +3,6 @@ import './App.css';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import HomePage from './pages/HomePage/HomePage';
-import UseAuth from './helper/UseAuth/UseAuth';
 import UserDetailsPage from './pages/UserDetailsPage/UserDetailsPage';
 import WelcomeBack from './pages/WelcomeBack/WelcomeBack';
 import InfoPage from './pages/InfoPage/InfoPage';

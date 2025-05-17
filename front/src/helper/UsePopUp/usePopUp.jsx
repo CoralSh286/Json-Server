@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext } from 'react';
 import "./style.css"
 // יצירת קונטקסט
 const PopupContext = createContext(null);
-
+ 
 // פרובידר הקונטקסט
 export const PopupProvider = ({ children }) => {
   // האם הפופאפ מוצג
@@ -18,15 +18,10 @@ export const PopupProvider = ({ children }) => {
   // האם לסגור בלחיצה מחוץ לפופאפ
   const [closeOnOutsideClick, setCloseOnOutsideClick] = useState(true);
   
-  
-  // גודל הפופאפ
-  const [size, setSize] = useState('medium'); // 'small', 'medium', 'large', 'fullscreen'
-
   // פתיחת פופאפ
   const openPopup = ({
     content,
     title = '',
-
     closeOnOutsideClick = true,
 
   }) => {

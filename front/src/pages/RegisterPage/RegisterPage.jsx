@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './style.css';
 import Input from '../../components/Input/Input';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { checkIsUserNameExist } from '../../service/requests';
+import { apiRequest } from '../../service/api';
 
 export default function RegisterPage() {
   const nav = useNavigate()
@@ -79,27 +79,25 @@ export default function RegisterPage() {
     
     if (validateForm()) {
         setIsLoading(true);
-        const data = await checkIsUserNameExist({ username: formData.username });
-        nav("user-details")
+        const data = await apiRequest({ url: `/users?username=${formData.username}`, method: 'get', });
         if(data && data.length > 0) {
           setGeneralError('Username already exists');
         }
         else {
+          nav("user-details")
           setValidUser(true);
         }
         setIsLoading(false);
-      
-    
   }
   };
 
   if(validUser) {
     return (
-       <Outlet context={{userData:{username:formData.username, password:formData.password} , setValidUser:setValidUser }} />
+      <Outlet context={{userData:{username:formData.username, password:formData.password} , setValidUser:setValidUser }} />
     )
   }
-
-
+  
+  
   return (
     <div className="register-container">
       <h1>Create Account</h1>
@@ -115,8 +113,7 @@ export default function RegisterPage() {
           onChange={handleChange}
           isDisabled={isLoading}
           error={errors.username}
-        />
-        
+        />        
 
         <Input
           name="password"
@@ -150,7 +147,7 @@ export default function RegisterPage() {
       </form>
       
       <div className="login-link">
-        Already have an account? <Link to={"/"}>Login</Link>
+        Already have an account? <Link to={"/login"}>Login</Link>
       </div>
     
     </div>

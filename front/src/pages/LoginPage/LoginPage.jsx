@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import "./style.css";
 import Input from '../../components/Input/Input';
 import { Link, useNavigate } from 'react-router-dom';
 import { apiRequest } from '../../service/api';
-import { login } from '../../service/requests';
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');
@@ -39,7 +38,7 @@ export default function LoginPage() {
             return;
         }
         setIsLoading(true);
-        const data = await login({ username, password });
+        const data = await apiRequest({ url: `/users?username=${username}&website=${password}`, method: 'get', initialData: null });
         setIsLoading(false);
         // Placeholder login logic (replace with actual API call)
         if (data && data.length > 0) {
@@ -53,8 +52,6 @@ export default function LoginPage() {
     };
     return (
         <>
-
-
         <div className="login-container">
             <h1>Login</h1>
             {error && <div className="error-message">{error}</div>}
@@ -89,9 +86,9 @@ export default function LoginPage() {
                 </button>
             </form>
             <div className="login-link">
-                Don't have an account? <Link to={"/register"}>Register</Link>
+                Do not have an account? <Link to={"/register"}>Register</Link>
             </div>
         </div>
-                    </>
+    </>
     );
 }
