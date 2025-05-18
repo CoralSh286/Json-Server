@@ -14,11 +14,14 @@ export default function Album({title, id , selected, setSelected}) {
   const getThumbnailLetter = () => {
     return title && title.length > 0 ? title[0].toUpperCase() : 'A';
   };
+
   const onSelectAlbum = () => {
-    if(selected?.id === id) setSelected(null); // If already selected, deselect it
+    if(selected?.id === id)
+     setSelected(null); // If already selected, deselect it
     else
-    setSelected({id, title});
+     setSelected({id, title});
   }
+
   return (
     <div className={`album-card${selected?.id === id ? ' selected' : ''}`} onClick={onSelectAlbum}>
       <div 

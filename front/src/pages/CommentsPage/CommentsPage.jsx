@@ -22,6 +22,7 @@ export default function CommentsPage() {
             setComments(data);
         }
     }, [data]);
+
     const onDelete = async () => {
         if (!selected) return; // אם לא נבחרה משימה, אל תעשה כלום
         const { id } = selected; // קח את ה-id של המשימה הנבחרת
@@ -30,6 +31,7 @@ export default function CommentsPage() {
         selected(null); // נקה את הסטייט של המשימה הנבחרת
         refetch()
     }
+    
     return (
         <div className="comments-page">
             <PageHeader title={`Comments for Post #${postId}`} />
