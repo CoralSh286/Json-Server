@@ -30,7 +30,7 @@ export default function CommentsPage() {
     const { id } = selected; // קח את ה-id של המשימה הנבחרת
     await apiRequest({ url: `/comments/${id}`, method: "DELETE" }); // מחק את המשימה מה-API
     setComments(comments.filter((comment) => comment.id !== id)); // עדכן את הסטייט של המשימות
-    selected(null); // נקה את הסטייט של המשימה הנבחרת
+    setSelected(null); // נקה את הסטייט של המשימה הנבחרת
     await refetch();
   };
 

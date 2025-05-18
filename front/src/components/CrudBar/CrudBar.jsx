@@ -14,20 +14,37 @@ import DeletePopUp from '../DeletePopUp/DeletePopUp';
 
 export default function CrudBar({editingFor, selected, onDelete , additionalData , refetchFunction}) {
   const { openPopup, closePopup } = usePopup();
- 
+ const isItemBelongsToUser = (message) => {
+   const user = JSON.parse(localStorage.getItem("user"));
+  if ( editingFor === "comments" &&  selected.email != user.email) {
+      openPopup({
+      content: <div className="popupmessage" id="popup">
+  <span>{`you cennot ${message} comment that are not yours`}</span>
+  <button className="close-btn" onClick={closePopup}>
+    ×
+  </button>
+</div>
+, // אפשר להעביר כל קומפוננטה
+    });
+    return false;
+  }
+  return true;
+  }
   const openPopupForEdit = () => {
+    if(!isItemBelongsToUser("edit"))return;
     openPopup({
       content: <EditorPopUp isNew={false} refetchFunction={refetchFunction} inputsValue={selected}  additionalData={additionalData} onClose={closePopup} editingFor={editingFor} />, // אפשר להעביר כל קומפוננטה
     });
-  
+    
   };
   const openPopupForCreate = () => {
     openPopup({
       content: <EditorPopUp isNew={true} refetchFunction={refetchFunction} onClose={closePopup}  additionalData={additionalData} editingFor={editingFor}/>, // אפשר להעביר כל קומפוננטה
     });
-  
+    
   };
   const openPopupForDelete = () => {
+    if(!isItemBelongsToUser("delete"))return;
 
     openPopup({
       content: <DeletePopUp onDelete={onDelete} onClose={closePopup}/>, // אפשר להעביר כל קומפוננטה

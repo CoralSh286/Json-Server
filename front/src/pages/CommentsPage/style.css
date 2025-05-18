@@ -72,3 +72,32 @@
       font-size: 20px;
     }
   }
+
+  .popupmessage {
+
+  background-color: #f44336; /* Red background */
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0;
+}
+
+.close-btn:hover {
+  color: #ddd;
+}
