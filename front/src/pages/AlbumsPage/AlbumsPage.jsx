@@ -37,7 +37,7 @@ export default function AlbumsPage() {
     if (!selectedAlbum) return; // אם לא נבחרה משימה, אל תעשה כלום
     const { id } = selectedAlbum; // קח את ה-id של המשימה הנבחרת
     await apiRequest({ url: `/albums/${id}`, method: "DELETE" }); // מחק את המשימה מה-API
-    refetch();
+   await refetch();
     setSelectedAlbum(null); // נקה את הסטייט של המשימה הנבחרת
   };
 

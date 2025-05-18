@@ -34,7 +34,7 @@ export default function TodosPage() {
     if (!selectedTodo) return; // אם לא נבחרה משימה, אל תעשה כלום
     const { id } = selectedTodo; // קח את ה-id של המשימה הנבחרת
     await apiRequest({ url: `/todos/${id}`, method: 'DELETE' }); // מחק את המשימה מה-API
-    refetch()
+   await refetch()
     setSelectedTodo(null); // נקה את הסטייט של המשימה הנבחרת
   }
   return (

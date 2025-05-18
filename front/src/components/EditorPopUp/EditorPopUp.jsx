@@ -23,8 +23,8 @@ export default function EditorPopUp({  isNew, onClose, inputsValue , editingFor,
       method: isNew ? "post" : "put",
       body: {...formEntries, ...additionalData}
     }).then((res) => {
+      refetchFunction()
     });
-    refetchFunction()
     onClose();
   };
   
