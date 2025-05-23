@@ -1,24 +1,24 @@
 // usePopup.jsx
 import React, { createContext, useState, useContext } from 'react';
 import "./style.css"
-// יצירת קונטקסט
+
 const PopupContext = createContext(null);
  
-// פרובידר הקונטקסט
+// Context provider
 export const PopupProvider = ({ children }) => {
-  // האם הפופאפ מוצג
+  // Whether the popup is displayed
   const [isOpen, setIsOpen] = useState(false);
   
-  // תוכן הפופאפ - יכול להיות כל קומפוננטה
+  // Popup content - can be any component
   const [content, setContent] = useState(null);
   
-  // כותרת הפופאפ (אופציונלי)
+  // Popup title (optional)
   const [title, setTitle] = useState('');
   
-  // האם לסגור בלחיצה מחוץ לפופאפ
+  // Whether to close on outside click
   const [closeOnOutsideClick, setCloseOnOutsideClick] = useState(true);
   
-  // פתיחת פופאפ
+  // Open popup function
   const openPopup = ({
     content,
     title = '',
@@ -31,23 +31,23 @@ export const PopupProvider = ({ children }) => {
     setIsOpen(true);
   };
 
-  // סגירת פופאפ
+  // Close popup function
   const closePopup = () => {
     setIsOpen(false);
-    // ניקוי התוכן לאחר סגירת הפופאפ ואנימציית הסגירה
+    // Clear content after closing popup and closing animation
     setTimeout(() => {
       setContent(null);
     }, 300);
   };
 
-  // טיפול בלחיצה מחוץ לפופאפ
+  // Handle outside click
   const handleOutsideClick = (e) => {
     if (closeOnOutsideClick && e.target.classList.contains('popup-overlay')) {
       closePopup();
     }
   };
 
-  // הערך שיסופק למשתמשים בקונטקסט
+  // Value provided to context consumers
   const value = {
     isOpen,
     content,
@@ -76,12 +76,12 @@ export const PopupProvider = ({ children }) => {
   );
 };
 
-// הוק מותאם לשימוש בקונטקסט
+// Custom hook for using the context
 export const usePopup = () => {
   const context = useContext(PopupContext);
   
   if (!context) {
-    throw new Error('usePopup חייב להיות בתוך PopupProvider');
+    throw new Error('usePopup must be used within PopupProvider');
   }
   
   return context;

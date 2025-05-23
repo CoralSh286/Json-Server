@@ -13,9 +13,9 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 export default function AlbumsPage() {
   const [albums, setAlbums] = useState([]);
   const userId = getUserId();
-  const [selectedAlbum, setSelectedAlbum] = useState(null); // הסטייט של המשימה הנבחרת
+  const [selectedAlbum, setSelectedAlbum] = useState(null); 
   const { data, loading, error, refetch } = useApiRequest({
-    url: `/albums?userId=${userId}`, // הנתיב לקבלת אלבומים מה-API
+    url: `/albums?userId=${userId}`, 
     initialData: [],
   });
 
@@ -34,11 +34,11 @@ export default function AlbumsPage() {
   };
 
   const onDelete = async () => {
-    if (!selectedAlbum) return; // אם לא נבחרה משימה, אל תעשה כלום
-    const { id } = selectedAlbum; // קח את ה-id של המשימה הנבחרת
-    await apiRequest({ url: `/albums/${id}`, method: "DELETE" }); // מחק את המשימה מה-API
+    if (!selectedAlbum) return;
+    const { id } = selectedAlbum;
+    await apiRequest({ url: `/albums/${id}`, method: "DELETE" }); 
    await refetch();
-    setSelectedAlbum(null); // נקה את הסטייט של המשימה הנבחרת
+    setSelectedAlbum(null); 
   };
 
   return (

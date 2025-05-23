@@ -3,7 +3,7 @@ import "./style.css"
 
 export default function Todo({ title, id, completed , selected , setSelected}) {
   const onSelectTodo = () => {
-    if(selected?.id == id) setSelected(null); // אם כבר נבחר, אל תעשה כלום
+    if(selected?.id == id) setSelected(null);
     else
     setSelected({id , title , completed});
   }

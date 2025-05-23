@@ -26,11 +26,11 @@ export default function CommentsPage() {
   }, [data]);
 
   const onDelete = async () => {
-    if (!selected) return; // אם לא נבחרה משימה, אל תעשה כלום
-    const { id } = selected; // קח את ה-id של המשימה הנבחרת
-    await apiRequest({ url: `/comments/${id}`, method: "DELETE" }); // מחק את המשימה מה-API
-    setComments(comments.filter((comment) => comment.id !== id)); // עדכן את הסטייט של המשימות
-    setSelected(null); // נקה את הסטייט של המשימה הנבחרת
+    if (!selected) return;
+    const { id } = selected; 
+    await apiRequest({ url: `/comments/${id}`, method: "DELETE" }); 
+    setComments(comments.filter((comment) => comment.id !== id));
+    setSelected(null); 
     await refetch();
   };
 

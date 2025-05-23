@@ -10,7 +10,7 @@ export default function SortTodos({ setTodos, todos }) {
   const [numericSortAsc, setNumericSortAsc] = useState(true);
 
   const handleAlphaSort = () => {
-    // אם כבר פעיל, החלף את הכיוון
+    // if already active, toggle the direction
     if (activeSort === 'alpha') {
       setAlphaSortAsc(!alphaSortAsc);
     } else {
@@ -18,7 +18,7 @@ export default function SortTodos({ setTodos, todos }) {
       setAlphaSortAsc(true);
     }
 
-    // מיון לפי כותרת
+    // sort by title
     const sortedTodos = [...todos].sort((a, b) => {
       const direction = alphaSortAsc ? 1 : -1;
       return direction * a.title.localeCompare(b.title);
@@ -28,7 +28,7 @@ export default function SortTodos({ setTodos, todos }) {
   };
 
   const handleNumericSort = () => {
-    // אם כבר פעיל, החלף את הכיוון
+    // if already active, toggle the direction
     if (activeSort === 'numeric') {
       setNumericSortAsc(!numericSortAsc);
     } else {
@@ -36,7 +36,7 @@ export default function SortTodos({ setTodos, todos }) {
       setNumericSortAsc(true);
     }
 
-    // מיון לפי מזהה
+    // sort by id
     const sortedTodos = [...todos].sort((a, b) => {
       const direction = numericSortAsc ? 1 : -1;
       return direction * (a.id - b.id);
@@ -48,7 +48,7 @@ export default function SortTodos({ setTodos, todos }) {
   const handleCompletionSort = () => {
     setActiveSort('completion');
 
-    // מיון לפי סטטוס השלמה (המשימות המושלמות קודם)
+    // sort by completion status
     const sortedTodos = [...todos].sort((a, b) => {
       return b.completed - a.completed;
     });

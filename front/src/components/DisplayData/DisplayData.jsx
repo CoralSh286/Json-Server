@@ -2,7 +2,7 @@ import React from 'react'
 import "./style.css"
 export default function DisplayData({ error, loading, data,  children }) {
     if (error) {
-        return <div>שגיאה בטעינת נתונים: {error.message}</div>;
+        return <div> ERROR ON LOADING DATA {error.message}</div>;
     }
     if (loading) {
         return <div className="data-loading">
@@ -17,7 +17,7 @@ export default function DisplayData({ error, loading, data,  children }) {
     }
     return (
         <>
-                        {children}
+            {children}
         </>
     )
 }

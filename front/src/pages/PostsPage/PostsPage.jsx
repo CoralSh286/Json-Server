@@ -12,10 +12,10 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 
 export default function PostsPage() {
   const [posts, setPosts] = useState([]);
-  const [selectedPost, setSelectedPost] = useState(null); // הסטייט של המשימה הנבחרת
+  const [selectedPost, setSelectedPost] = useState(null); 
   const userId = getUserId();
   const { data, loading, error, refetch } = useApiRequest({
-    url: `/posts?userId=${userId}`, // הנתיב לקבלת פוסטים מה-API
+    url: `/posts?userId=${userId}`,
     initialData: [],
   });
 
